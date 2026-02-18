@@ -23,13 +23,23 @@ def game_evaluation(board):
         return True
     return False
 
-def game(board,ai_version):
+def game(board,ai_version,player):
     winner = ''
-    setting=ai_version
+    #sanitize inputs to ensure program runs
+    if ai_version is 'AB' or 'MCTS' or 'dumb':
+        setting=ai_version
+    else: 
+        setting='dumb'
+    if player is 'Y':
+        play=player
+    else:
+        play='N'
+    #main game loop
     while not game_evalution(board):
         #play game
         return 
     return -1
+
 def main():
     board =np.arr(['*','*','*','*','*','*','*'],
                   ['*','*','*','*','*','*','*'],
@@ -37,7 +47,9 @@ def main():
                   ['*','*','*','*','*','*','*'],
                   ['*','*','*','*','*','*','*'],
                   ['*','*','*','*','*','*','*'])
-    play = game(board)
+    OS=input('Select AI version (AB version, MCTS version, or dumb)(default is dumb):')
+    real_player=input('Player or AI opponent? (Y/N)(default is AI)')
+    play = game(board,OS,real_player)
     if (play.winner is not -1):
         print(f'The {play.winner} wins!')
     else:
