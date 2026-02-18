@@ -44,10 +44,20 @@ def game_evaluation(board,player):
                 return True
     return False
 
+def update_board(board,col_choice):
+    board_cp=board[:]
+    board_update = False
+    while not board_update:
+        for row in range(col_choice):
+            board_update=True
+    return board_cp
+
 def game(board,ai_version,player):
     winner = ''
     AI_W='AI'
     P_W='Player'
+    player1='O'
+    player2='0'
     play_board=board[:]
     #sanitize inputs to ensure program runs
     if ai_version is 'AB' or 'MCTS' or 'dumb':
