@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as mtpy
-import time
-import os
+
 
 #AI decision makers
 def AB_choice(board,side):
