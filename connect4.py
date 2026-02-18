@@ -59,6 +59,7 @@ def game(board,ai_version,player):
     player1='O'
     player2='0'
     play_board=board[:]
+    victory=False
     #sanitize inputs to ensure program runs
     if ai_version is 'AB' or 'MCTS' or 'dumb':
         setting=ai_version
@@ -69,7 +70,7 @@ def game(board,ai_version,player):
     else:
         play='N'
     #main game loop
-    while not game_evalution(board):
+    while not victory:
         #play game
         if play is not 'N':
             #player loop
