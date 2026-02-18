@@ -3,8 +3,13 @@ import matplotlib.pyplot as mtpy
 import time
 import os
 
+#AI decision makers
+def AB_choice():
+    return -1
+def MCTS_choice():
+    return -1
 #evaluate decision based on mode input in game setup
-def opponent_ai(board,version):
+def opponent_ai(board,version,side):
     choice = 0
     columns = np.array([0,1,2,3,4,5,6])
     if version is 'AB':
@@ -17,10 +22,26 @@ def opponent_ai(board,version):
         return choice
     
 
-def game_evaluation(board):
-    win = ''
-    if ():
-        return True
+def game_evaluation(board,player):
+    rows,cols = board.shape
+    #horizontal and vertial check
+    for r in range(rows):
+        for c in range(cols-3):
+            if all(board[r,c+i] == player for i in range(4)):
+                return True
+    for r in range(rows-3):
+        for c in range(cols):
+            if all(board[r+i,c] == player for i in range(4)):
+                return True
+    #diagonal checks
+    for r in range(rows):
+        for c in range(cols-3):
+            if all(board[r,c+i] == player for i in range(4)):
+                return True
+    for r in range(rows-3):
+        for c in range(cols):
+            if all(board[r+i,c] == player for i in range(4)):
+                return True
     return False
 
 def game(board,ai_version,player):
