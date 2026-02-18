@@ -4,12 +4,12 @@ import time
 import os
 
 #AI decision makers
-def AB_choice():
+def AB_choice(board,side):
     return -1
-def MCTS_choice():
+def MCTS_choice(board,side):
     return -1
 #evaluate decision based on mode input in game setup
-def opponent_ai(board,version,side):
+def ai_choice(board,version,side):
     choice = 0
     columns = np.array([0,1,2,3,4,5,6])
     if version is 'AB':
@@ -74,9 +74,10 @@ def game(board,ai_version,player):
         #play game
         if play is not 'N':
             #player loop
+            victory=game_evaluation(play_board,player1)
         else:
             #autorun using set data
-
+            victory=game_evaluation(play_board,player1)
     return -1
 
 def main():
