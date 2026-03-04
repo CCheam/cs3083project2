@@ -29,7 +29,9 @@ def valid_sq_check(board,row,col,num,block_size):
             if(board[sRow+i][sCol+j] == num):
                 return False
     return True
-        
+
+
+#unoptimized solver    
 def sudoku_solved_uo(board,row,col,b_size):
     b_end = b_size * b_size
     #end looping at end of rows
@@ -53,6 +55,12 @@ def sudoku_solved_uo(board,row,col,b_size):
             
     return None
     
+#optimized solver, takes bools to turn functions on
+def sudoku_solved_mxo(board, row, col, b_size, MRV, INFR, ODV):
+    b_end = b_size * b_size
+    return b_end
+
+#Main solver, times runtime and runs recursive function to compare methods
 def solve_sudoku(board,size):
     sTime=time.perf_counter()
     s = sudoku_solved_uo(board,0,0,size)
@@ -64,7 +72,7 @@ def solve_sudoku(board,size):
 
 def main():
     block_size = 3
-    empty_sqs = 20
+    empty_sqs = 30
     block_size_sq = block_size * block_size
     block_file= f"sudoku{block_size_sq}.json"
     #dynamically run sudoku generator based off of passed in vars
