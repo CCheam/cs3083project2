@@ -34,7 +34,7 @@ def sudoku_solved_uo(board,row,col,b_size):
     b_end = b_size * b_size
     #end looping at end of rows
     if row == (b_end -1) and col == (b_end):
-        return True
+        return board
     #col looping
     if col == b_end:
         row+=1
@@ -47,29 +47,37 @@ def sudoku_solved_uo(board,row,col,b_size):
         if (valid_sq_check(board,row,col,num,b_size)):
             board[row][col]=num
             if sudoku_solved_uo(board,row,col+1,b_size):
-                return True
+                return sudoku_solved_uo(board, row, col + 1, b_size)
             board[row][col]=0
             
-    return False
+    return None
     
 def solve_sudoku(board,size):
     sTime=time.perf_counter()
-    sudoku_solved_uo(board,0,0,size)
+    s = sudoku_solved_uo(board,0,0,size)
     eTime=time.perf_counter()
     rTime=eTime-sTime
     print(f"Time to run: {rTime:.6f} seconds")
+    return s 
 
 
 def main():
-    block_size = 4
-    empty_sqs = 30
+    block_size = 3
+    empty_sqs = 20
     block_size_sq = block_size * block_size
     block_file= f"sudoku{block_size_sq}.json"
     #dynamically run sudoku generator based off of passed in vars
     os.system(f"python SudokuGenerator.py {empty_sqs} --output_file {block_file} --block_size {block_size}")
     with open(block_file, "r") as f:
         board = json.load(f)
-    solve_sudoku(board,block_size)
+    # print solved/unsolved
+    print("Unsolved Board")
+    for row in board:
+        print(row)
+    slv = solve_sudoku(board,block_size)
+    print("Solved Board")
+    for row in slv:
+        print(row)
 
 if __name__ == "__main__":
     main()
