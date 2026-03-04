@@ -46,8 +46,9 @@ def sudoku_solved_uo(board,row,col,b_size):
     for num in range(1,b_end+1):
         if (valid_sq_check(board,row,col,num,b_size)):
             board[row][col]=num
-            if sudoku_solved_uo(board,row,col+1,b_size):
-                return sudoku_solved_uo(board, row, col + 1, b_size)
+            r = sudoku_solved_uo(board,row,col+1,b_size)
+            if r:
+                return r
             board[row][col]=0
             
     return None
