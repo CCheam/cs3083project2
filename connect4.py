@@ -2,11 +2,23 @@ import numpy as np
 import matplotlib.pyplot as mtpy
 
 
-#AI decision makers
+#AI decision makers 
 def AB_choice(board,side):
     return -1
 def MCTS_choice(board,side):
     return -1
+
+class Nodes:
+    def __init__(self,name,children,value):
+        self.name=name
+        self.value=value
+        self.children=children
+
+class AB_pruning:
+    def __init__(self,name,children,value):
+        self.name=name
+        self.value=value
+        self.children=children
 #evaluate decision based on mode input in game setup
 def ai_choice(board,version,side):
     choice = 0
