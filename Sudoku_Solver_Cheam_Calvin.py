@@ -9,6 +9,7 @@ import os
 #block size. Optimization strategies are my own code. 
 #
 
+#checks if a number will work in a square
 def valid_sq_check(board,row,col,num,block_size):
 
     #check by row, set to be col for scalability
@@ -29,6 +30,18 @@ def valid_sq_check(board,row,col,num,block_size):
             if(board[sRow+i][sCol+j] == num):
                 return False
     return True
+
+#master func to use random or MRV to pick next cell
+def select_variable_CS(board,b_size,MRV):
+    def rand_selec():
+        print()
+    def MRV_selec():
+        print()
+    if MRV:
+        print()
+    else:
+        print()
+    return -1
 
 
 #unoptimized solver    
@@ -58,12 +71,31 @@ def sudoku_solved_uo(board,row,col,b_size):
 #optimized solver, takes bools to turn functions on
 def sudoku_solved_mxo(board, row, col, b_size, MRV, INFR, ODV):
     b_end = b_size * b_size
+    #utilize MRV/random, sequential only last fallback
+    if MRV:
+        cell = select_variable_CS(board, b_size,MRV)
+    else:
+        cell = select_variable_CS(board, b_size,MRV)
+    # Unoptimized linear fallback if MRV fails, 
+    if cell is None:
+        if row == b_end:
+            return board
+        if col == b_end:
+            return sudoku_solved_mxo(board, row + 1, 0, b_size, MRV, INFR, ODV)
+        if board[row][col] != 0:
+            return sudoku_solved_mxo(board, row, col + 1, b_size, MRV, INFR, ODV)
+        cell = (row, col)                         
+
+    row, col = cell
     return b_end
 
-#Main solver, times runtime and runs recursive function to compare methods
-def solve_sudoku(board,size):
+#Main solver, times runtime and runs recursive function. Checks if settings is not none to run
+def solve_sudoku(board,size,settings):
     sTime=time.perf_counter()
-    s = sudoku_solved_uo(board,0,0,size)
+    if settings is not None:
+        s = sudoku_solved_mxo(board,0,0,size,settings)
+    else:
+        s = sudoku_solved_uo(board,0,0,size)
     eTime=time.perf_counter()
     rTime=eTime-sTime
     print(f"Time to run: {rTime:.6f} seconds")
@@ -83,7 +115,7 @@ def main():
     print("Unsolved Board")
     for row in board:
         print(row)
-    slv = solve_sudoku(board,block_size)
+    slv = solve_sudoku(board,block_size,None)
     print("Solved Board")
     for row in slv:
         print(row)
