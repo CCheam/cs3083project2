@@ -278,11 +278,11 @@ def main():
     for row in slv:
         print(row)
 
-    # all heuristics
+    # some heuristics
     with open(block_file, "r") as f:
         board = json.load(f)
-    print("\nAll heuristics:")
-    slv = solve_sudoku(board, block_size, True, True, True)
+    print("\nMRV + ODV:")
+    slv = solve_sudoku(board, block_size, True, False, True)
     for row in slv:
         print(row)
     
