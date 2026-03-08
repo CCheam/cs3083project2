@@ -12,14 +12,11 @@ import os
 #checks if a number will work in a square
 def valid_sq_check(board,row,col,num,block_size):
 
-    #check by row, set to be col for scalability
-    for x in range(col):
-        if(board[row][x] == num):
-            return False
-    #check by row, set to be col for scalability
-    for x in range(row):
-        if(board[x][col] == num):
-            return False
+    b_end = block_size * block_size
+    for x in range(b_end):
+        if board[row][x] == num: return False
+    for x in range(b_end):
+        if board[x][col] == num: return False
         
     #loop through square
     sRow = row - (row % block_size)
@@ -231,7 +228,7 @@ def solve_sudoku(board,size,*settings):
 
 def main():
     block_size = 3
-    empty_sqs = 30
+    empty_sqs = 70
     block_size_sq = block_size * block_size
     block_file = f"sudoku{block_size_sq}.json"
     os.system(f"python SudokuGenerator.py {empty_sqs} --output_file {block_file} --block_size {block_size}")
@@ -282,7 +279,7 @@ def main():
     with open(block_file, "r") as f:
         board = json.load(f)
     print("\nMRV + ODV:")
-    slv = solve_sudoku(board, block_size, True, False, True)
+    slv = solve_sudoku(board, block_size, True,False,True)
     for row in slv:
         print(row)
     
